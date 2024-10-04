@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Site</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background-color: #fff;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            padding: 0.5rem 1rem;
+        }
+
+        .search-section {
+            background-color: #4a4a4a;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+        }
+
+        .search-tags {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            color: #fff;
+        }
+
+        .recommended-section {
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .review-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .review-image {
+            width: 100%;
+            height: 200px;
+            background-color: #ddd;
+        }
+
+        .review-content {
+            padding: 1rem;
+        }
+
+        .review-rating {
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer {
+            background-color: #fff;
+            padding: 1rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .product-section {
+            padding: 2rem;
+            background: #fff;
+            margin: 2rem 0;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .product-card {
+            border: 1px solid #eee;
+            padding: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="#">로그인</a>
+            <a href="#">회원가입</a>
+            <a href="#">마이페이지</a>
+            <a href="#">고객센터</a>
+        </nav>
+    </header>
+
+    <section class="search-section">
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+        </div>
+        <div class="search-tags">
+            <a href="#">#태그1</a>
+            <a href="#">#태그2</a>
+            <a href="#">#태그3</a>
+            <a href="#">#태그4</a>
+        </div>
+    </section>
+
+    <section class="recommended-section">
+        <h2 class="section-title">추천 인기리뷰</h2>
+        <div class="review-grid">
+            <div class="review-card">
+                <div class="review-image">
+                    <img src="/api/placeholder/250/200" alt="리뷰 이미지 1">
+                </div>
+                <div class="review-content">
+                    <div class="review-rating">★★★★☆</div>
+                    <h3>리뷰 제목 1</h3>
+                    <p>리뷰 내용 미리보기...</p>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-image">
+                    <img src="/api/placeholder/250/200" alt="리뷰 이미지 2">
+                </div>
+                <div class="review-content">
+                    <div class="review-rating">★★★★★</div>
+                    <h3>리뷰 제목 2</h3>
+                    <p>리뷰 내용 미리보기...</p>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-image">
+                    <img src="/api/placeholder/250/200" alt="리뷰 이미지 3">
+                </div>
+                <div class="review-content">
+                    <div class="review-rating">★★★★☆</div>
+                    <h3>리뷰 제목 3</h3>
+                    <p>리뷰 내용 미리보기...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="product-section">
+        <h2 class="section-title">제품 리뷰</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="/api/placeholder/150/150" alt="제품 1">
+                <h3>Product 1</h3>
+                <p>Lorem ipsum</p>
+            </div>
+            <div class="product-card">
+                <img src="/api/placeholder/150/150" alt="제품 2">
+                <h3>Product 2</h3>
+                <p>Lorem ipsum</p>
+            </div>
+            <div class="product-card">
+                <img src="/api/placeholder/150/150" alt="제품 3">
+                <h3>Product 3</h3>
+                <p>Lorem ipsum</p>
+            </div>
+            <div class="product-card">
+                <img src="/api/placeholder/150/150" alt="제품 4">
+                <h3>Product 4</h3>
+                <p>Lorem ipsum</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">Contact Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function() {
+            $('.search-input').on('keyup', function() {
+                // 검색 기능 구현을 위한 자리 표시자
+                console.log('Searching:', $(this).val());
+            });
+        });
+    </script>
+</body>
+</html>
