@@ -1,10 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review Site</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -13,219 +11,505 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
         }
 
-        .header {
-            background-color: #fff;
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .header-dark {
+            background-color: #464646;
+            min-height: 400px;
+            padding: 20px 0;
         }
 
-        .nav {
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            padding: 0.5rem 1rem;
-        }
-
-        .search-section {
-            background-color: #4a4a4a;
-            padding: 3rem 1rem;
-            text-align: center;
-        }
-
-        .search-bar {
-            max-width: 600px;
+        .nav-container {
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+        }
+
+        .sub-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            transform: translateY(10px);
+            z-index: 1000;
+            border-radius: 4px;
+        }
+
+        .sub-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .sub-menu-item {
+            padding: 12px 20px;
+            color: #333;
+            display: block;
+            text-decoration: none;
+        }
+
+        .sub-menu-item:hover {
+            background: #f5f5f5;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 40px auto;
             position: relative;
         }
 
         .search-input {
             width: 100%;
-            padding: 1rem;
+            padding: 15px 50px 15px 20px;
             border: none;
             border-radius: 25px;
-            font-size: 1rem;
+            font-size: 16px;
         }
 
-        .search-tags {
+        .search-button {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .tags {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin-top: 1rem;
-            color: #fff;
+            gap: 15px;
+            margin-top: 20px;
         }
 
-        .recommended-section {
-            padding: 2rem;
+        .tag {
+            color: white;
+            text-decoration: none;
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        .popular-reviews {
+            text-align: center;
+            padding: 60px 0;
         }
 
-        .review-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
+        .popular-reviews h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
         }
 
-        .review-card {
-            background: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .popular-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .review-image {
+        .popular-item {
+            width: 300px;
+            height: 600px;
+            position: relative;
+        }
+
+        .popular-item img {
             width: 100%;
-            height: 200px;
-            background-color: #ddd;
+            height: 800px;
+            object-fit: cover;
+            border-radius: 8px;
         }
 
-        .review-content {
-            padding: 1rem;
-        }
-
-        .review-rating {
-            color: #ffd700;
-            margin-bottom: 0.5rem;
-        }
-
-        .footer {
-            background-color: #fff;
-            padding: 1rem;
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        .footer-links {
+        .rank {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255,0,0,0.8);
+            color: white;
+            width: 30px;
+            height: 30px;
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 2rem;
-        }
-
-        .product-section {
-            padding: 2rem;
-            background: #fff;
-            margin: 2rem 0;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .product-card {
-            border: 1px solid #eee;
-            padding: 1rem;
-            text-align: center;
+            border-radius: 50%;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <nav class="nav">
-            <a href="#">로그인</a>
-            <a href="#">회원가입</a>
-            <a href="#">마이페이지</a>
-            <a href="#">고객센터</a>
-        </nav>
-    </header>
+<div class="header-dark">
+    <nav class="main-nav nav-container">
+        <a href="/" class="logo">Review Site</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="content">컨텐츠</a>
+                <div class="sub-menu">
+                    <a href="#" class="sub-menu-item">영화</a>
+                    <a href="#" class="sub-menu-item">드라마</a>
+                    <a href="#" class="sub-menu-item">도서</a>
+                    <a href="#" class="sub-menu-item">게임</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="product">제품</a>
+                <div class="sub-menu">
+                    <a href="#" class="sub-menu-item">전자기기</a>
+                    <a href="#" class="sub-menu-item">의류</a>
+                    <a href="#" class="sub-menu-item">식품</a>
+                    <a href="#" class="sub-menu-item">뷰티</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="location">지역/문화</a>
+                <div class="sub-menu">
+                    <a href="#" class="sub-menu-item">맛집</a>
+                    <a href="#" class="sub-menu-item">카페</a>
+                    <a href="#" class="sub-menu-item">여행</a>
+                    <a href="#" class="sub-menu-item">문화생활</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">공지사항</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">로그인/로그아웃</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">회원가입</a>
+            </li>
+        </ul>
+    </nav>
 
-    <section class="search-section">
-        <div class="search-bar">
-            <input type="text" class="search-input" placeholder="검색어를 입력하세요">
-        </div>
-        <div class="search-tags">
-            <a href="#">#태그1</a>
-            <a href="#">#태그2</a>
-            <a href="#">#태그3</a>
-            <a href="#">#태그4</a>
-        </div>
-    </section>
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search in site">
+        <button class="search-button">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+        </button>
+    </div>
 
-    <section class="recommended-section">
-        <h2 class="section-title">추천 인기리뷰</h2>
-        <div class="review-grid">
-            <div class="review-card">
-                <div class="review-image">
-                    <img src="/api/placeholder/250/200" alt="리뷰 이미지 1">
-                </div>
-                <div class="review-content">
-                    <div class="review-rating">★★★★☆</div>
-                    <h3>리뷰 제목 1</h3>
-                    <p>리뷰 내용 미리보기...</p>
-                </div>
-            </div>
-            <div class="review-card">
-                <div class="review-image">
-                    <img src="/api/placeholder/250/200" alt="리뷰 이미지 2">
-                </div>
-                <div class="review-content">
-                    <div class="review-rating">★★★★★</div>
-                    <h3>리뷰 제목 2</h3>
-                    <p>리뷰 내용 미리보기...</p>
-                </div>
-            </div>
-            <div class="review-card">
-                <div class="review-image">
-                    <img src="/api/placeholder/250/200" alt="리뷰 이미지 3">
-                </div>
-                <div class="review-content">
-                    <div class="review-rating">★★★★☆</div>
-                    <h3>리뷰 제목 3</h3>
-                    <p>리뷰 내용 미리보기...</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="tags">
+        <a href="#" class="tag">#태그1</a>
+        <a href="#" class="tag">#태그2</a>
+        <a href="#" class="tag">#태그3</a>
+        <a href="#" class="tag">#태그4</a>
+        <a href="#" class="tag">#태그5</a>
+    </div>
+</div>
 
-    <section class="product-section">
-        <h2 class="section-title">제품 리뷰</h2>
-        <div class="product-grid">
-            <div class="product-card">
-                <img src="/api/placeholder/150/150" alt="제품 1">
-                <h3>Product 1</h3>
-                <p>Lorem ipsum</p>
-            </div>
-            <div class="product-card">
-                <img src="/api/placeholder/150/150" alt="제품 2">
-                <h3>Product 2</h3>
-                <p>Lorem ipsum</p>
-            </div>
-            <div class="product-card">
-                <img src="/api/placeholder/150/150" alt="제품 3">
-                <h3>Product 3</h3>
-                <p>Lorem ipsum</p>
-            </div>
-            <div class="product-card">
-                <img src="/api/placeholder/150/150" alt="제품 4">
-                <h3>Product 4</h3>
-                <p>Lorem ipsum</p>
-            </div>
+<section class="popular-reviews">
+    <h2>주간 인기리뷰</h2>
+    <div class="popular-grid">
+        <div class="popular-item">
+            <div class="rank">1</div>
+            <img src="/api/placeholder/300/300" alt="Popular review 1">
         </div>
-    </section>
-
-    <footer class="footer">
-        <div class="footer-links">
-            <a href="#">Contact Us</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms & Conditions</a>
+        <div class="popular-item">
+            <div class="rank">2</div>
+            <img src="/api/placeholder/300/300" alt="Popular review 2">
         </div>
-    </footer>
+        <div class="popular-item">
+            <div class="rank">3</div>
+            <img src="/api/placeholder/300/300" alt="Popular review 3">
+        </div>
+    </div>
+</section>
 
-    <script>
-        $(document).ready(function() {
-            $('.search-input').on('keyup', function() {
-                // 검색 기능 구현을 위한 자리 표시자
-                console.log('Searching:', $(this).val());
+<!-- 이전 리뷰 섹션 코드는 그대로 유지 -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const navItems = document.querySelectorAll('.nav-item');
+        let hoverTimeout;
+
+        navItems.forEach(item => {
+            const subMenu = item.querySelector('.sub-menu');
+
+            item.addEventListener('mouseenter', () => {
+                clearTimeout(hoverTimeout);
+                hoverTimeout = setTimeout(() => {
+                    // 모든 서브메뉴 닫기
+                    document.querySelectorAll('.sub-menu').forEach(menu => {
+                        menu.classList.remove('show');
+                    });
+                    // 현재 서브메뉴 열기
+                    subMenu.classList.add('show');
+                }, 1000); // 1초 딜레이
+            });
+
+            item.addEventListener('mouseleave', () => {
+                clearTimeout(hoverTimeout);
+                setTimeout(() => {
+                    subMenu.classList.remove('show');
+                }, 300); // 약간의 딜레이로 자연스러운 전환
             });
         });
-    </script>
+    });
+</script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .review-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .dropdown-section {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        .dropdown-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 10px 0;
+        }
+        .dropdown-icon {
+            transition: transform 0.3s ease;
+        }
+        .dropdown-icon.open {
+            transform: rotate(180deg);
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+            min-width: 200px;
+        }
+        .dropdown-menu.show {
+            display: block;
+        }
+        .dropdown-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .dropdown-item:hover {
+            background: #f8f9fa;
+        }
+        .dropdown-item.active {
+            background: #f0f0f0;
+            font-weight: bold;
+        }
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .review-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .review-image {
+            width: 100%;
+            height: 200px;
+            background: #f8f9fa;
+            object-fit: cover;
+        }
+        .review-content {
+            padding: 15px;
+        }
+        .review-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+        .review-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+            margin-bottom: 8px;
+        }
+        .review-loading {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="review-container">
+    <div class="dropdown-section">
+        <button class="dropdown-button" id="reviewDropdown">
+            제품 리뷰
+            <svg class="dropdown-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+            </svg>
+        </button>
+        <div class="dropdown-menu" id="reviewMenu">
+            <div class="dropdown-item active" data-type="product">제품 리뷰</div>
+            <div class="dropdown-item" data-type="content">컨텐츠 리뷰</div>
+            <div class="dropdown-item" data-type="location">지역 리뷰</div>
+        </div>
+    </div>
+
+    <div class="review-grid" id="reviewGrid">
+        <!-- Review cards will be loaded here -->
+    </div>
+
+    <div class="review-loading" id="reviewLoading">
+        로딩중...
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdown = document.getElementById('reviewDropdown');
+        const menu = document.getElementById('reviewMenu');
+        const dropdownIcon = dropdown.querySelector('.dropdown-icon');
+        const grid = document.getElementById('reviewGrid');
+        const loading = document.getElementById('reviewLoading');
+        let currentType = 'product';
+
+        // 드롭다운 토글
+        dropdown.addEventListener('click', function() {
+            menu.classList.toggle('show');
+            dropdownIcon.classList.toggle('open');
+        });
+
+        // 드롭다운 메뉴 아이템 클릭 처리
+        menu.addEventListener('click', function(e) {
+            if (e.target.classList.contains('dropdown-item')) {
+                const type = e.target.dataset.type;
+                const text = e.target.textContent;
+
+                // 활성 상태 변경
+                menu.querySelectorAll('.dropdown-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                e.target.classList.add('active');
+
+                // 드롭다운 버튼 텍스트 변경
+                dropdown.childNodes[0].textContent = text + ' ';
+
+                // 리뷰 로드
+                if (currentType !== type) {
+                    currentType = type;
+                    loadReviews(type);
+                }
+
+                // 드롭다운 닫기
+                menu.classList.remove('show');
+                dropdownIcon.classList.remove('open');
+            }
+        });
+
+        // 외부 클릭시 드롭다운 닫기
+        document.addEventListener('click', function(e) {
+            if (!dropdown.contains(e.target)) {
+                menu.classList.remove('show');
+                dropdownIcon.classList.remove('open');
+            }
+        });
+
+        // AJAX로 리뷰 로드
+        function loadReviews(type) {
+            grid.style.opacity = '0.5';
+            loading.style.display = 'block';
+
+            // AJAX 요청 시뮬레이션 (실제 구현시 이 부분을 실제 API 호출로 대체)
+            setTimeout(() => {
+                const reviews = generateReviews(type);
+                renderReviews(reviews);
+                grid.style.opacity = '1';
+                loading.style.display = 'none';
+            }, 500);
+        }
+
+        // 리뷰 렌더링
+        function renderReviews(reviews) {
+            grid.innerHTML = reviews.map(review => `
+                <div class="review-card">
+                    <img src="${review.image}" alt="${review.title}" class="review-image">
+                    <div class="review-content">
+                        <div class="review-badge">${review.badge}</div>
+                        <h3 class="review-title">${review.title}</h3>
+                        <p>${review.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 테스트용 리뷰 데이터 생성 (실제 구현시 제거)
+        function generateReviews(type) {
+            const badges = {
+                product: 'New Arrival',
+                content: '추천',
+                location: '인기'
+            };
+
+            return Array.from({length: 8}, (_, i) => ({
+                image: `/api/placeholder/300/200`,
+                badge: badges[type],
+                title: `${type === 'product' ? '제품' : type === 'content' ? '컨텐츠' : '지역'} 리뷰 ${i + 1}`,
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+            }));
+        }
+
+        // 초기 리뷰 로드
+        loadReviews('product');
+    });
+</script>
 </body>
 </html>

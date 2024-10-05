@@ -17,13 +17,16 @@ public class ReviewPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(length = 100, nullable = false)
     private String subject;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
+
+    @Column(columnDefinition = "TEXT")
+    private String contentDetail;
 
     @Column(nullable = false)
     private LocalDateTime createDate;

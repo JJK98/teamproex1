@@ -11,5 +11,14 @@ public class MainController {
         return "MainPage";
     }
 
+
+    @GetMapping("/admin")
+    public String adminreview(){
+        return "admin_page";
+    }
+//    @GetMapping("/notice")
+//    public String notice(){
+//        return "board_notice";
+//    }
 }
 

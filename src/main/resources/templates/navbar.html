@@ -1,0 +1,73 @@
+
+<nav th:fragment="navbarFragment" class="main-nav nav-container">
+  <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+  <a href="/" class="logo">Review Site</a>
+  <ul class="nav-menu">
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-category="content">컨텐츠</a>
+      <div class="sub-menu">
+        <a href="#" class="sub-menu-item">영화</a>
+        <a href="#" class="sub-menu-item">드라마</a>
+        <a href="#" class="sub-menu-item">도서</a>
+        <a href="#" class="sub-menu-item">게임</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-category="product">제품</a>
+      <div class="sub-menu">
+        <a href="#" class="sub-menu-item">전자기기</a>
+        <a href="#" class="sub-menu-item">의류</a>
+        <a href="#" class="sub-menu-item">식품</a>
+        <a href="#" class="sub-menu-item">뷰티</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-category="location">지역/문화</a>
+      <div class="sub-menu">
+        <a href="#" class="sub-menu-item">맛집</a>
+        <a href="#" class="sub-menu-item">카페</a>
+        <a href="#" class="sub-menu-item">여행</a>
+        <a href="#" class="sub-menu-item">문화생활</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link">공지사항</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link">로그인/로그아웃</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link">회원가입</a>
+    </li>
+  </ul>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const navItems = document.querySelectorAll('.nav-item');
+        let hoverTimeout;
+
+        navItems.forEach(item => {
+            const subMenu = item.querySelector('.sub-menu');
+
+            if (subMenu) { // 서브메뉴가 있는 경우에만 이벤트 추가
+                item.addEventListener('mouseenter', () => {
+                    clearTimeout(hoverTimeout);
+                    hoverTimeout = setTimeout(() => {
+                        document.querySelectorAll('.sub-menu').forEach(menu => {
+                            menu.classList.remove('show');
+                        });
+                        subMenu.classList.add('show');
+                    }, 1000);
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    clearTimeout(hoverTimeout);
+                    setTimeout(() => {
+                        subMenu.classList.remove('show');
+                    }, 300);
+                });
+            }
+        });
+    });
+  </script>
+</nav>
+

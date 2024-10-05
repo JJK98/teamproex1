@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>리뷰 등록</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 40px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 32px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 30px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+        .rating-container {
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .tags {
+            margin-top: 15px;
+        }
+        .tags a {
+            margin-left: 15px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .tags a:hover {
+            text-decoration: underline;
+        }
+        .image-upload {
+            width: 250px;
+            height: 250px;
+            background-color: #f2f2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #ddd;
+            margin-bottom: 30px;
+            font-size: 16px;
+            color: #777;
+        }
+        .content-flex {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        .content-textarea {
+            flex: 1;
+            height: 250px;
+        }
+    </style>
+</head>
+<body>
+
+<nav th:replace="~{navbar :: navbarFragment}"></nav>
+
+<div class="container">
+    <h1>리뷰 등록</h1>
+
+    <form th:action="@{/reviewPost/create}" method="post">
+        <div class="form-group">
+            <label for="title">제목</label>
+            <input type="text" id="title" name="title" placeholder="제목을 입력해주세요">
+        </div>
+
+        <div class="rating-container">
+            <label>콘텐츠명/제품명</label>
+            <span>☆ ☆ ☆ ☆ ☆ / ★ ★ ★ ★ ★</span>
+        </div>
+
+        <div class="form-group">
+            <label for="content">내용</label>
+            <div class="content-flex">
+                <div class="image-upload">이미지 등록</div>
+                <textarea id="content" name="content" class="content-textarea" placeholder="내용을 입력해주세요"></textarea>
+            </div>
+        </div>
+
+        <div class="tags">
+            <label>태그</label>
+            <span>#태그</span> <span>#태그</span> <span>#태그</span> <span>#태그</span> <a href="#">+태그추가</a>
+        </div>
+
+        <div class="form-group">
+            <label for="contentDetail">작품소개</label>
+            <textarea id="contentDetail" name="contentDetail" rows="10" placeholder="상세 내용을 입력해주세요"></textarea>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>
