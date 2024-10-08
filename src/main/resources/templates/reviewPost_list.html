@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게사판!</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+
+</body>
+</html>
+<nav th:replace="~{navbar :: navbarFragment}"></nav>
+
+<div>
+  <thead>
+  <tr>
+    <th>번호</th>
+    <th>제목</th>
+    <th>작성일자</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="review:${reviewList}">
+    <td th:text="${review.id}"></td>
+    <td th:text="${review.subject}"></td>
+    <td th:text="${review.createDate}"></td>
+  </tr>
+  </tbody>
+  <a th:href="@/reviewPost/create"></a>
+</div>

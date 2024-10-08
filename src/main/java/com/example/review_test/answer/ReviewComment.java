@@ -1,6 +1,7 @@
 package com.example.review_test.answer;
 
 
+import com.example.review_test.notice.NoticePost;
 import com.example.review_test.question.ReviewPost;
 import com.example.review_test.siteUser.User;
 import lombok.Getter;
@@ -19,7 +20,7 @@ public class ReviewComment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(length=5000, nullable = false)
     private String content;
 
     @Column(nullable = false)
@@ -40,4 +41,5 @@ public class ReviewComment {
 
     @OneToMany(mappedBy = "parentAnswer", cascade = CascadeType.ALL)
     private List<ReviewComment> childAnswers = new ArrayList<>();  // 자식 댓글들 (답글들)
+
 }

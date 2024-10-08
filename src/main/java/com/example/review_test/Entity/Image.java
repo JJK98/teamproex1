@@ -1,4 +1,4 @@
-package com.example.review_test;
+package com.example.review_test.Entity;
 
 
 import com.example.review_test.question.ReviewPost;

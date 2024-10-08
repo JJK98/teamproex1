@@ -1,7 +1,7 @@
 package com.example.review_test.question;
 
 
-import com.example.review_test.Image;
+import com.example.review_test.Entity.Image;
 import com.example.review_test.answer.ReviewComment;
 import com.example.review_test.siteUser.User;
 import lombok.Getter;
@@ -37,6 +37,10 @@ public class ReviewPost {
     @ManyToOne
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private ReviewCategory category;
+
     @OneToMany(mappedBy = "reviewPost", cascade = CascadeType.REMOVE)
     private List<ReviewComment> comments;
 
@@ -48,4 +52,5 @@ public class ReviewPost {
 
     @Column
     private int vote;
+
 }

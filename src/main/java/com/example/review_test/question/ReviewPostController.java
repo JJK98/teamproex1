@@ -4,9 +4,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @   Controller
 @RequestMapping("/reviewPost")
@@ -26,5 +28,12 @@ public class ReviewPostController {
         reviewPost.setContentDetail(reviewPostForm.getContentDetail());
         reviewPost.setCreateDate(LocalDateTime.now());
         return reviewPostService.saveReviewPost(reviewPost);
+    }
+
+    @GetMapping("/list")
+    public String listReviewPost(Model model){
+        List<ReviewPost> reviewList = this.reviewPostService.getList();
+        model.addAttribute("reviewList", reviewList);
+        return "reviewPost_list";
     }
 }
